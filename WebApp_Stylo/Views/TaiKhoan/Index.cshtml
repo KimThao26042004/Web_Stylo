@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApp_Stylo.Models.TaiKhoan>
+
+@{
+    ViewBag.Title = "Danh Sách Tài Khoản";
+}
+
+<div class="container">
+    <h2>Danh Sách Tài Khoản</h2>
+
+    @using (Html.BeginForm("Index", "TaiKhoan", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.Label("Tìm kiếm tài khoản:")
+            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên tài khoản" })
+            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        </div>
+    }
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Tên Tài Khoản</th>
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TenDangNhap</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "TaiKhoan", new { id = item.TaiKhoanID })" class="btn btn-warning btn-sm">Sửa</a>
+                        @using (Html.BeginForm("Delete", "TaiKhoan", new { id = item.TaiKhoanID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

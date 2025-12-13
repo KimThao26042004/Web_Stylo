@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApp_Stylo.Models.SanPham>
+
+@{
+    ViewBag.Title = "Danh Sách Sản Phẩm";
+}
+
+<div class="container">
+    <h2>Danh Sách Sản Phẩm</h2>
+
+    <!-- Tạo nút Thêm sản phẩm -->
+    <a href="@Url.Action("Create", "SanPham")" class="btn btn-success">Thêm Sản Phẩm</a>
+    <!-- Form Tìm Kiếm -->
+    @using (Html.BeginForm("Index", "SanPham", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.Label("Tìm kiếm sản phẩm:")
+            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên sản phẩm" })
+            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        </div>
+    }
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                @*<th>Ảnh</th>*@
+                <th>Tên Sản Phẩm</th>
+                <th>Mô Tả</th>
+                <th>Danh Mục</th>
+                <th>Thương Hiệu</th>
+                @*<th>Giá</th>*@
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TenSanPham</td>
+                    <td>@item.MoTa</td>
+                    <!-- Kiểm tra null trước khi truy cập thuộc tính của DanhMuc -->
+                    <td>@(item.DanhMuc != null ? item.DanhMuc.Ten : "Không có danh mục")</td>
+                    <!-- Kiểm tra null trước khi truy cập thuộc tính của ThuongHieu -->
+                    <td>@(item.ThuongHieu != null ? item.ThuongHieu.Ten : "Không có thương hiệu")</td>
+                    @*<td>@item.GiaBan.ToString("C")</td>*@
+                    <td>
+                        <a href="@Url.Action("Edit", "SanPham", new { id = item.SanPhamID })" class="btn btn-warning btn-sm">Sửa</a>
+                        @using (Html.BeginForm("Delete", "SanPham", new { id = item.SanPhamID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

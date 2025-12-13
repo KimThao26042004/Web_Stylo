@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dbdb5809c54546e799cb4a75f0e3580e" Name="Diagram1">
+        <EntityTypeShape EntityType="fashion_shopModel.AnhSanPham" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.DanhGia" Width="1.5" PointX="10.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.DanhMuc" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.DonHang" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.DonHang_ChiTiet" Width="1.5" PointX="9.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.KhachHang" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.MauSac" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.NhanVien" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.PhanLoai" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.Role" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.SanPham" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.SanPham_BienThe" Width="1.5" PointX="7.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.Size" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.sysdiagram" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.TaiKhoan" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.ThuongHieu" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.TonKho" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.User_Product_Interaction" Width="1.5" PointX="12.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.VanDon" Width="1.5" PointX="9.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.vw_UserProduct_Features" Width="1.5" PointX="11.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fashion_shopModel.vw_UserProduct_Trainset" Width="1.5" PointX="12.75" PointY="12.875" IsExpanded="true" />
+        <AssociationConnector Association="fashion_shopModel.fk_img_bt" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_img_sp" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_dg_kh" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_dg_sp" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_dm_pl" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_sp_dm" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_dh_kh" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_dhct_dh" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_vd_dh" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_dhct_bt" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_evt_kh" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_kh_tk" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_bt_mau" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_nv_tk" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_tk_role" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_bt_sp" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_evt_sp" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_sp_th" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_bt_size" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_evt_bt" ManuallyRouted="false" />
+        <AssociationConnector Association="fashion_shopModel.fk_ton_bt" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

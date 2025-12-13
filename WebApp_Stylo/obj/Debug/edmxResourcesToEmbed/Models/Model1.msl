@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="fashion_shopModelStoreContainer" CdmEntityContainer="fashion_shopEntities">
+    <EntitySetMapping Name="AnhSanPhams">
+      <EntityTypeMapping TypeName="fashion_shopModel.AnhSanPham">
+        <MappingFragment StoreEntitySet="AnhSanPham">
+          <ScalarProperty Name="AnhID" ColumnName="AnhID" />
+          <ScalarProperty Name="SanPhamID" ColumnName="SanPhamID" />
+          <ScalarProperty Name="BienTheID" ColumnName="BienTheID" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DanhGias">
+      <EntityTypeMapping TypeName="fashion_shopModel.DanhGia">
+        <MappingFragment StoreEntitySet="DanhGia">
+          <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+          <ScalarProperty Name="SanPhamID" ColumnName="SanPhamID" />
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="ExternalUserID" ColumnName="ExternalUserID" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="ReviewTitle" ColumnName="ReviewTitle" />
+          <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+          <ScalarProperty Name="VerifiedPurchase" ColumnName="VerifiedPurchase" />
+          <ScalarProperty Name="ReviewSource" ColumnName="ReviewSource" />
+          <ScalarProperty Name="ReviewTime" ColumnName="ReviewTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DanhMucs">
+      <EntityTypeMapping TypeName="fashion_shopModel.DanhMuc">
+        <MappingFragment StoreEntitySet="DanhMuc">
+          <ScalarProperty Name="DanhMucID" ColumnName="DanhMucID" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="PhanLoaiID" ColumnName="PhanLoaiID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonHangs">
+      <EntityTypeMapping TypeName="fashion_shopModel.DonHang">
+        <MappingFragment StoreEntitySet="DonHang">
+          <ScalarProperty Name="DonHangID" ColumnName="DonHangID" />
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="KenhBan" ColumnName="KenhBan" />
+          <ScalarProperty Name="TongTienHang" ColumnName="TongTienHang" />
+          <ScalarProperty Name="TongGiamGia" ColumnName="TongGiamGia" />
+          <ScalarProperty Name="Thue" ColumnName="Thue" />
+          <ScalarProperty Name="PhiVanChuyen" ColumnName="PhiVanChuyen" />
+          <ScalarProperty Name="TongThanhToan" ColumnName="TongThanhToan" />
+          <ScalarProperty Name="NgayDat" ColumnName="NgayDat" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonHang_ChiTiet">
+      <EntityTypeMapping TypeName="fashion_shopModel.DonHang_ChiTiet">
+        <MappingFragment StoreEntitySet="DonHang_ChiTiet">
+          <ScalarProperty Name="DonHangID" ColumnName="DonHangID" />
+          <ScalarProperty Name="BienTheID" ColumnName="BienTheID" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+          <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
+          <ScalarProperty Name="Thue" ColumnName="Thue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KhachHangs">
+      <EntityTypeMapping TypeName="fashion_shopModel.KhachHang">
+        <MappingFragment StoreEntitySet="KhachHang">
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="TaiKhoanID" ColumnName="TaiKhoanID" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MauSacs">
+      <EntityTypeMapping TypeName="fashion_shopModel.MauSac">
+        <MappingFragment StoreEntitySet="MauSac">
+          <ScalarProperty Name="MauID" ColumnName="MauID" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="MaHex" ColumnName="MaHex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhanViens">
+      <EntityTypeMapping TypeName="fashion_shopModel.NhanVien">
+        <MappingFragment StoreEntitySet="NhanVien">
+          <ScalarProperty Name="NhanVienID" ColumnName="NhanVienID" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+          <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+          <ScalarProperty Name="TaiKhoanID" ColumnName="TaiKhoanID" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhanLoais">
+      <EntityTypeMapping TypeName="fashion_shopModel.PhanLoai">
+        <MappingFragment StoreEntitySet="PhanLoai">
+          <ScalarProperty Name="PhanLoaiID" ColumnName="PhanLoaiID" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="fashion_shopModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SanPhams">
+      <EntityTypeMapping TypeName="fashion_shopModel.SanPham">
+        <MappingFragment StoreEntitySet="SanPham">
+          <ScalarProperty Name="SanPhamID" ColumnName="SanPhamID" />
+          <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="DanhMucID" ColumnName="DanhMucID" />
+          <ScalarProperty Name="ThuongHieuID" ColumnName="ThuongHieuID" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="ExternalID" ColumnName="ExternalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SanPham_BienThe">
+      <EntityTypeMapping TypeName="fashion_shopModel.SanPham_BienThe">
+        <MappingFragment StoreEntitySet="SanPham_BienThe">
+          <ScalarProperty Name="BienTheID" ColumnName="BienTheID" />
+          <ScalarProperty Name="SanPhamID" ColumnName="SanPhamID" />
+          <ScalarProperty Name="MauID" ColumnName="MauID" />
+          <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+          <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+          <ScalarProperty Name="GiaNhap" ColumnName="GiaNhap" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sizes">
+      <EntityTypeMapping TypeName="fashion_shopModel.Size">
+        <MappingFragment StoreEntitySet="Size">
+          <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+          <ScalarProperty Name="KyHieu" ColumnName="KyHieu" />
+          <ScalarProperty Name="ThuTu" ColumnName="ThuTu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="fashion_shopModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaiKhoans">
+      <EntityTypeMapping TypeName="fashion_shopModel.TaiKhoan">
+        <MappingFragment StoreEntitySet="TaiKhoan">
+          <ScalarProperty Name="TaiKhoanID" ColumnName="TaiKhoanID" />
+          <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+          <ScalarProperty Name="MatKhauHash" ColumnName="MatKhauHash" />
+          <ScalarProperty Name="created_at" ColumnName="created_at" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ThuongHieux">
+      <EntityTypeMapping TypeName="fashion_shopModel.ThuongHieu">
+        <MappingFragment StoreEntitySet="ThuongHieu">
+          <ScalarProperty Name="ThuongHieuID" ColumnName="ThuongHieuID" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TonKhoes">
+      <EntityTypeMapping TypeName="fashion_shopModel.TonKho">
+        <MappingFragment StoreEntitySet="TonKho">
+          <ScalarProperty Name="BienTheID" ColumnName="BienTheID" />
+          <ScalarProperty Name="OnHand" ColumnName="OnHand" />
+          <ScalarProperty Name="Reserved" ColumnName="Reserved" />
+          <ScalarProperty Name="AvgCost" ColumnName="AvgCost" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Product_Interaction">
+      <EntityTypeMapping TypeName="fashion_shopModel.User_Product_Interaction">
+        <MappingFragment StoreEntitySet="User_Product_Interaction">
+          <ScalarProperty Name="InteractionID" ColumnName="InteractionID" />
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="SanPhamID" ColumnName="SanPhamID" />
+          <ScalarProperty Name="BienTheID" ColumnName="BienTheID" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="ViewTimeSec" ColumnName="ViewTimeSec" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Channel" ColumnName="Channel" />
+          <ScalarProperty Name="Referrer" ColumnName="Referrer" />
+          <ScalarProperty Name="Device" ColumnName="Device" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="OccurredAt" ColumnName="OccurredAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VanDons">
+      <EntityTypeMapping TypeName="fashion_shopModel.VanDon">
+        <MappingFragment StoreEntitySet="VanDon">
+          <ScalarProperty Name="VanDonID" ColumnName="VanDonID" />
+          <ScalarProperty Name="DonHangID" ColumnName="DonHangID" />
+          <ScalarProperty Name="DVVC" ColumnName="DVVC" />
+          <ScalarProperty Name="MaVanDon" ColumnName="MaVanDon" />
+          <ScalarProperty Name="TrangThaiGiao" ColumnName="TrangThaiGiao" />
+          <ScalarProperty Name="PhiVanChuyen" ColumnName="PhiVanChuyen" />
+          <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
+          <ScalarProperty Name="NgayGiaoDuKien" ColumnName="NgayGiaoDuKien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_UserProduct_Features">
+      <EntityTypeMapping TypeName="fashion_shopModel.vw_UserProduct_Features">
+        <MappingFragment StoreEntitySet="vw_UserProduct_Features">
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="SanPhamID" ColumnName="SanPhamID" />
+          <ScalarProperty Name="view_cnt" ColumnName="view_cnt" />
+          <ScalarProperty Name="click_cnt" ColumnName="click_cnt" />
+          <ScalarProperty Name="addcart_cnt" ColumnName="addcart_cnt" />
+          <ScalarProperty Name="purchase_cnt" ColumnName="purchase_cnt" />
+          <ScalarProperty Name="avg_view_time" ColumnName="avg_view_time" />
+          <ScalarProperty Name="last_interaction_at" ColumnName="last_interaction_at" />
+          <ScalarProperty Name="has_received_offer" ColumnName="has_received_offer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_UserProduct_Trainset">
+      <EntityTypeMapping TypeName="fashion_shopModel.vw_UserProduct_Trainset">
+        <MappingFragment StoreEntitySet="vw_UserProduct_Trainset">
+          <ScalarProperty Name="KhachHangID" ColumnName="KhachHangID" />
+          <ScalarProperty Name="SanPhamID" ColumnName="SanPhamID" />
+          <ScalarProperty Name="view_cnt" ColumnName="view_cnt" />
+          <ScalarProperty Name="click_cnt" ColumnName="click_cnt" />
+          <ScalarProperty Name="addcart_cnt" ColumnName="addcart_cnt" />
+          <ScalarProperty Name="purchase_cnt" ColumnName="purchase_cnt" />
+          <ScalarProperty Name="avg_view_time" ColumnName="avg_view_time" />
+          <ScalarProperty Name="last_interaction_at" ColumnName="last_interaction_at" />
+          <ScalarProperty Name="has_received_offer" ColumnName="has_received_offer" />
+          <ScalarProperty Name="DanhMucID" ColumnName="DanhMucID" />
+          <ScalarProperty Name="ThuongHieuID" ColumnName="ThuongHieuID" />
+          <ScalarProperty Name="AvgRating" ColumnName="AvgRating" />
+          <ScalarProperty Name="RatingCount" ColumnName="RatingCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="fashion_shopModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="fashion_shopModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="fashion_shopModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="fashion_shopModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="fashion_shopModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="fashion_shopModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="fashion_shopModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="fashion_shopModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="fashion_shopModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>
