@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApp_Stylo.Models.PhanLoai>
+
+@{
+    ViewBag.Title = "Danh Sách Phân Loại";
+}
+
+<div class="container">
+    <h2>Danh Sách Phân Loại</h2>
+
+    @using (Html.BeginForm("Index", "PhanLoai", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.Label("Tìm kiếm phân loại:")
+            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên phân loại" })
+            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        </div>
+    }
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Tên Phân Loại</th>
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Ten</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "PhanLoai", new { id = item.PhanLoaiID })" class="btn btn-warning btn-sm">Sửa</a>
+                        @using (Html.BeginForm("Delete", "PhanLoai", new { id = item.PhanLoaiID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa phân loại này?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

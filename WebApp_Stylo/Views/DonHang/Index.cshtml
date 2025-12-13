@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebApp_Stylo.Models.DonHang>
+
+@{
+    ViewBag.Title = "Danh Sách Đơn Hàng";
+}
+
+<div class="container">
+    <h2>Danh Sách Đơn Hàng</h2>
+
+    @using (Html.BeginForm("Index", "DonHang", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.Label("Tìm kiếm đơn hàng:")
+            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên khách hàng" })
+            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        </div>
+    }
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Mã Đơn Hàng</th>
+                <th>Khách Hàng</th>
+                <th>Ngày Đặt</th>
+                <th>Tổng Tiền</th>
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DonHangID</td>
+                    <td>@item.KhachHang.HoTen</td>
+                    <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
+                    <td>@item.TongThanhToan.ToString("C")</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "DonHang", new { id = item.DonHangID })" class="btn btn-warning btn-sm">Sửa</a>
+                        @using (Html.BeginForm("Delete", "DonHang", new { id = item.DonHangID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

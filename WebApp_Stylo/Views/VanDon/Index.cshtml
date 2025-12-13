@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebApp_Stylo.Models.VanDon>
+
+@{
+    ViewBag.Title = "Danh Sách Vận Đơn";
+}
+
+<div class="container">
+    <h2>Danh Sách Vận Đơn</h2>
+
+    @using (Html.BeginForm("Index", "VanDon", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.Label("Tìm kiếm vận đơn:")
+            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập mã vận đơn" })
+            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        </div>
+    }
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Mã Vận Đơn</th>
+                <th>Đơn Hàng</th>
+                <th>Ngày Gửi</th>
+                <th>Trạng Thái Giao</th>
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaVanDon</td>
+                    <td>@item.DonHangID</td>
+                    <td>@item.NgayGui.ToString("dd/MM/yyyy")</td>
+                    <td>@item.TrangThaiGiao</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "VanDon", new { id = item.VanDonID })" class="btn btn-warning btn-sm">Sửa</a>
+                        @using (Html.BeginForm("Delete", "VanDon", new { id = item.VanDonID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa vận đơn này?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

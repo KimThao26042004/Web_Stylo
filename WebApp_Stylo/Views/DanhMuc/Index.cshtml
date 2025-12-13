@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApp_Stylo.Models.DanhMuc>
+
+@{
+    ViewBag.Title = "Danh Sách Danh Mục";
+}
+
+<div class="container">
+    <h2>Danh Sách Danh Mục</h2>
+
+    @using (Html.BeginForm("Index", "DanhMuc", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.Label("Tìm kiếm danh mục:")
+            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên danh mục" })
+            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        </div>
+    }
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Tên Danh Mục</th>
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Ten</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "DanhMuc", new { id = item.DanhMucID })" class="btn btn-warning btn-sm">Sửa</a>
+                        @using (Html.BeginForm("Delete", "DanhMuc", new { id = item.DanhMucID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa danh mục này?');" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
