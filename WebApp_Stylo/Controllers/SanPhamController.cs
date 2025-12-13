@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebApp_Stylo.Models; 
+using WebApp_Stylo.Models;
 
 namespace WebApp_Stylo.Controllers
 {
@@ -16,10 +16,10 @@ namespace WebApp_Stylo.Controllers
         // GET: SanPham
         public ActionResult Index()
         {
+            // Lấy tất cả sản phẩm và bao gồm thông tin DanhMuc và ThuongHieu
             var products = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.ThuongHieu).ToList();
             return View(products);
         }
-
 
         // GET: SanPham/Create
         public ActionResult Create()
@@ -38,7 +38,6 @@ namespace WebApp_Stylo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(sanPham);
         }
 
@@ -78,7 +77,7 @@ namespace WebApp_Stylo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SanPham sanPham = db.SanPhams.Find(id); 
+            SanPham sanPham = db.SanPhams.Find(id);
             if (sanPham == null)
             {
                 return HttpNotFound();
@@ -91,16 +90,15 @@ namespace WebApp_Stylo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SanPham sanPham = db.SanPhams.Find(id);  
-            db.SanPhams.Remove(sanPham);  
+            SanPham sanPham = db.SanPhams.Find(id);
+            db.SanPhams.Remove(sanPham);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        // GET: SanPham
-        public ActionResult Index(string searchTerm)
+        // GET: SanPham/Search (Chức năng tìm kiếm)
+        public ActionResult Search(string searchTerm)
         {
-            // Kiểm tra nếu có từ khóa tìm kiếm
             var products = from p in db.SanPhams
                            select p;
 
@@ -110,7 +108,7 @@ namespace WebApp_Stylo.Controllers
                 products = products.Where(p => p.TenSanPham.Contains(searchTerm));
             }
 
-            return View(products.ToList());
+            return View("Index", products.ToList());  // Trả về view Index với kết quả tìm kiếm
         }
     }
 }

@@ -14,17 +14,29 @@ namespace WebApp_Stylo.Controllers
         private fashion_shopEntities db = new fashion_shopEntities();
 
         // GET: ThuongHieu
-        public ActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm, int page = 1)
         {
-            var brands = from b in db.ThuongHieux
-                         select b;
+            int pageSize = 10;  
+            var query = db.ThuongHieux.AsQueryable();
 
-            if (!String.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                brands = brands.Where(b => b.Ten.Contains(searchTerm));
+                query = query.Where(t => t.Ten.Contains(searchTerm));
             }
 
-            return View(brands.ToList());
+            int totalRecords = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var brands = query
+                .OrderBy(t => t.Ten)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
+            return View(brands);
         }
 
         // GET: ThuongHieu/Create

@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "D:\\IT\\Nam4\\WebApp_Stylo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|d:\\it\\nam4\\webapp_stylo\\webapp_stylo\\views\\vandon\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\views\\vandon\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|D:\\IT\\Nam4\\WebApp_Stylo\\webapp_stylo\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|d:\\it\\nam4\\webapp_stylo\\webapp_stylo\\controllers\\vandoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\controllers\\vandoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|d:\\it\\nam4\\webapp_stylo\\webapp_stylo\\views\\thuonghieu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\views\\thuonghieu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|d:\\it\\nam4\\webapp_stylo\\webapp_stylo\\content\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\content\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|D:\\IT\\Nam4\\WebApp_Stylo\\webapp_stylo\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|d:\\it\\nam4\\webapp_stylo\\webapp_stylo\\controllers\\taikhoancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\controllers\\taikhoancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|D:\\IT\\Nam4\\WebApp_Stylo\\webapp_stylo\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|d:\\it\\nam4\\webapp_stylo\\webapp_stylo\\controllers\\thuonghieucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D609481-6255-4899-A475-59A9FE8AF43F}|WebApp_Stylo\\WebApp_Stylo.csproj|solutionrelative:webapp_stylo\\controllers\\thuonghieucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,65 +70,65 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Views\\VanDon\\Index.cshtml",
-              "RelativeDocumentMoniker": "WebApp_Stylo\\Views\\VanDon\\Index.cshtml",
-              "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Views\\VanDon\\Index.cshtml",
-              "RelativeToolTip": "WebApp_Stylo\\Views\\VanDon\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-13T13:51:15.389Z",
+              "DocumentIndex": 4,
+              "Title": "ThuongHieuController.cs",
+              "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Controllers\\ThuongHieuController.cs",
+              "RelativeDocumentMoniker": "WebApp_Stylo\\Controllers\\ThuongHieuController.cs",
+              "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Controllers\\ThuongHieuController.cs",
+              "RelativeToolTip": "WebApp_Stylo\\Controllers\\ThuongHieuController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwBcAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T15:20:30.663Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "VanDonController.cs",
-              "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Controllers\\VanDonController.cs",
-              "RelativeDocumentMoniker": "WebApp_Stylo\\Controllers\\VanDonController.cs",
-              "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Controllers\\VanDonController.cs",
-              "RelativeToolTip": "WebApp_Stylo\\Controllers\\VanDonController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T13:50:28.285Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TaiKhoanController.cs",
-              "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Controllers\\TaiKhoanController.cs",
-              "RelativeDocumentMoniker": "WebApp_Stylo\\Controllers\\TaiKhoanController.cs",
-              "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Controllers\\TaiKhoanController.cs",
-              "RelativeToolTip": "WebApp_Stylo\\Controllers\\TaiKhoanController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-13T12:54:01.088Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Views\\ThuongHieu\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebApp_Stylo\\Views\\ThuongHieu\\Index.cshtml",
+              "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Views\\ThuongHieu\\Index.cshtml*",
+              "RelativeToolTip": "WebApp_Stylo\\Views\\ThuongHieu\\Index.cshtml*",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-13T15:19:25.103Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "styles.css",
+              "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Content\\styles.css",
+              "RelativeDocumentMoniker": "WebApp_Stylo\\Content\\styles.css",
+              "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Content\\styles.css*",
+              "RelativeToolTip": "WebApp_Stylo\\Content\\styles.css*",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAgwIYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-13T14:35:25.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "WebApp_Stylo\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "WebApp_Stylo\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAABZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-13T12:24:28.03Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "Web.config",
               "DocumentMoniker": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Web.config",
               "RelativeDocumentMoniker": "WebApp_Stylo\\Web.config",
               "ToolTip": "D:\\IT\\Nam4\\WebApp_Stylo\\WebApp_Stylo\\Web.config",
               "RelativeToolTip": "WebApp_Stylo\\Web.config",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAiwBQAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwBMAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
               "WhenOpened": "2025-12-13T12:03:32.732Z",
               "EditorCaption": ""

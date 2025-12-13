@@ -6,37 +6,30 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
-                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
-                </div>*@
-                    <div class="sidebar">
-                        <ul class="nav">
-                            <li><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
-                            <li><a href="@Url.Action("Index", "ThuongHieu")">Thương hiệu</a></li>
-                            <li><a href="@Url.Action("Index", "TaiKhoan")">Tài khoản</a></li>
-                            <li><a href="@Url.Action("Index", "PhanLoai")">Phân loại </a></li>
-                            <li><a href="@Url.Action("Index", "DanhMuc")">Danh mục</a></li>
-                            <li><a href="@Url.Action("Index", "SanPham")">Sản phẩm</a></li>
-                            <li><a href="@Url.Action("Index", "DonHang")">DonHang</a></li>
-                            <li><a href="@Url.Action("Index", "VanDon")">VanDon</a></li>
-                        </ul>
-    </div>
+        <div class="container">
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <ul class="nav">
+                    <li><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Trang chủ</a></li>
+                    <li><a href="@Url.Action("Index", "ThuongHieu")"><i class="fas fa-tags"></i> Thương Hiệu</a></li>
+                    <li><a href="@Url.Action("Index", "TaiKhoan")"><i class="fas fa-user"></i> Tài Khoản</a></li>
+                    <li><a href="@Url.Action("Index", "PhanLoai")"><i class="fas fa-th"></i> Phân Loại</a></li>
+                    <li><a href="@Url.Action("Index", "DanhMuc")"><i class="fas fa-list"></i> Danh Mục</a></li>
+                    <li><a href="@Url.Action("Index", "SanPham")"><i class="fas fa-cogs"></i> Sản Phẩm</a></li>
+                    <li><a href="@Url.Action("Index", "DonHang")"><i class="fas fa-box"></i> Đơn Hàng</a></li>
+                    <li><a href="@Url.Action("Index", "VanDon")"><i class="fas fa-shipping-fast"></i> Vận Đơn</a></li>
+                </ul>
             </div>
+
+        </div>
         </nav>
-    <!-- Sidebar -->
 
 
 
