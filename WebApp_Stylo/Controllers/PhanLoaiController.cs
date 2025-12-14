@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using WebApp_Stylo.Models;
 
 namespace WebApp_Stylo.Controllers
@@ -14,7 +15,7 @@ namespace WebApp_Stylo.Controllers
         private fashion_shopEntities db = new fashion_shopEntities();
 
         // GET: PhanLoai
-        public ActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm, int page = 1)
         {
             var categories = from c in db.PhanLoais
                              select c;
@@ -24,7 +25,22 @@ namespace WebApp_Stylo.Controllers
                 categories = categories.Where(c => c.Ten.Contains(searchTerm));
             }
 
-            return View(categories.ToList());
+            int pageSize = 10;
+            var query = db.PhanLoais.AsQueryable();
+
+            int totalRecords = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var xcategories = query
+                .OrderBy(t => t.Ten)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
+            return View(xcategories);
         }
 
         // GET: PhanLoai/Create

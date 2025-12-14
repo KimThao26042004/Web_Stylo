@@ -14,11 +14,32 @@ namespace WebApp_Stylo.Controllers
         private fashion_shopEntities db = new fashion_shopEntities();
 
         // GET: SanPham
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int page = 1)
         {
-            // Lấy tất cả sản phẩm và bao gồm thông tin DanhMuc và ThuongHieu
-            var products = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.ThuongHieu).ToList();
-            return View(products);
+            int pageSize = 10;
+            var query = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.ThuongHieu).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(s => s.TenSanPham.Contains(searchTerm));
+            }
+
+            int totalRecords = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var products = db.SanPhams
+                             .Where(s => string.IsNullOrEmpty(searchTerm) || s.TenSanPham.Contains(searchTerm))
+                             .OrderBy(s => s.TenSanPham)
+                             .Skip((page - 1) * pageSize)
+                             .Take(pageSize)
+                             .Select(s => new { s.SanPhamID, s.TenSanPham, s.DanhMuc.Ten, s.ThuongHieu })  // Chọn cột cần thiết
+                             .ToList();
+
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
+            return View(products); 
         }
 
         // GET: SanPham/Create

@@ -31,7 +31,7 @@ namespace WebApp_Stylo.Controllers
             int totalRecords = query.Count();
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-            var brands = query
+            var subCategories = query
                 .OrderBy(t => t.Ten)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -40,7 +40,7 @@ namespace WebApp_Stylo.Controllers
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
 
-            return View(brands);
+            return View(subCategories);
         }
 
         // GET: DanhMuc/Create

@@ -14,7 +14,7 @@ namespace WebApp_Stylo.Controllers
         private fashion_shopEntities db = new fashion_shopEntities();
 
         // GET: VanDon
-        public ActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm, int page = 1)
         {
             var shipping = from v in db.VanDons
                            select v;
@@ -24,7 +24,22 @@ namespace WebApp_Stylo.Controllers
                 shipping = shipping.Where(v => v.MaVanDon.Contains(searchTerm));
             }
 
-            return View(shipping.ToList());
+            int pageSize = 10;
+            var query = db.VanDons.AsQueryable();
+
+            int totalRecords = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var xshipping = query
+                .OrderBy(t => t.MaVanDon)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
+            return View(xshipping);
         }
 
         // GET: VanDon/Create

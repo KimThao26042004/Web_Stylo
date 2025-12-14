@@ -21,6 +21,7 @@
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
+                <th class="index-column">STT</th>
                 @*<th>Ảnh</th>*@
                 <th>Tên Sản Phẩm</th>
                 <th>Mô Tả</th>
@@ -34,14 +35,14 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.TenSanPham</td>
-                    <td>@item.MoTa</td>
-                    <!-- Kiểm tra null trước khi truy cập thuộc tính của DanhMuc -->
-                    <td>@(item.DanhMuc != null ? item.DanhMuc.Ten : "Không có danh mục")</td>
-                    <!-- Kiểm tra null trước khi truy cập thuộc tính của ThuongHieu -->
-                    <td>@(item.ThuongHieu != null ? item.ThuongHieu.Ten : "Không có thương hiệu")</td>
-                    @*<td>@item.GiaBan.ToString("C")</td>*@
-                    <td>
+                    <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>
+
+                    <td class="index-column">@item.TenSanPham</td>
+                    <td class="index-column">@item.MoTa</td>
+                    <td class="index-column">@(item.DanhMuc != null ? item.DanhMuc.Ten : "Không có danh mục")</td>
+                    <td class="index-column">@(item.ThuongHieu != null ? item.ThuongHieu.Ten : "Không có thương hiệu")</td>
+                    @*<td class="index-column">@item.GiaBan.ToString("C")</td>*@
+                    <td class="btn-container">
                         <a href="@Url.Action("Edit", "SanPham", new { id = item.SanPhamID })" class="btn btn-warning btn-sm">Sửa</a>
                         @using (Html.BeginForm("Delete", "SanPham", new { id = item.SanPhamID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');" }))
                         {
@@ -54,4 +55,38 @@
 
         </tbody>
     </table>
+
+    <!-- Thông báo số trang -->
+    <div class="page-info">
+        <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
+        <span>Hiển thị từ @((@ViewBag.CurrentPage - 1) * 10 + 1) đến @Math.Min(@ViewBag.CurrentPage * 10, @ViewBag.TotalPages * 10)</span>
+    </div>
+
+    <!-- Phân trang với mũi tên và ô nhập số trang -->
+    <div class="pagination">
+        <!-- Mũi tên trái -->
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link arrow">&#8592;</a>
+        }
+        else
+        {
+            <span class="page-link arrow">&#8592;</span>
+        }
+
+        <!-- Ô nhập số trang -->
+        <form method="get" action="@Url.Action("Index", "SanPham")" class="page-control">
+            <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
+        </form>
+
+        <!-- Mũi tên phải -->
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link arrow">&#8594;</a>
+        }
+        else
+        {
+            <span class="page-link arrow">&#8594;</span>
+        }
+    </div>
 </div>

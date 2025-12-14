@@ -13,7 +13,7 @@ namespace WebApp_Stylo.Controllers
     {
         private fashion_shopEntities db = new fashion_shopEntities();
 
-        public ActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm, int page = 1)
         {
             var accounts = from a in db.TaiKhoans
                            select a;
@@ -23,7 +23,22 @@ namespace WebApp_Stylo.Controllers
                 accounts = accounts.Where(a => a.TenDangNhap.Contains(searchTerm));
             }
 
-            return View(accounts.ToList());
+            int pageSize = 10;
+            var query = db.TaiKhoans.AsQueryable();
+
+            int totalRecords = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var xaccounts = query
+                .OrderBy(t => t.RoleId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
+            return View(xaccounts);
         }
 
         public ActionResult Create()

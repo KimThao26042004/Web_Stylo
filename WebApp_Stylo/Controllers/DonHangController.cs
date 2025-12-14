@@ -14,7 +14,7 @@ namespace WebApp_Stylo.Controllers
         private fashion_shopEntities db = new fashion_shopEntities();
 
         // GET: DonHang
-        public ActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm, int page = 1)
         {
             var orders = from o in db.DonHangs
                          select o;
@@ -24,7 +24,22 @@ namespace WebApp_Stylo.Controllers
                 orders = orders.Where(o => o.KhachHang.HoTen.Contains(searchTerm));
             }
 
-            return View(orders.ToList());
+            int pageSize = 10;
+            var query = db.DonHangs.AsQueryable();
+
+            int totalRecords = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var brands = query
+                .OrderBy(t => t.DonHangID)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+
+            return View(brands);
         }
 
         // GET: DonHang/Create
