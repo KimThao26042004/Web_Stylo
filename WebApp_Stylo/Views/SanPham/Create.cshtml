@@ -1,0 +1,55 @@
+﻿@model WebApp_Stylo.Models.SanPham
+
+<div class="container">
+    <h3>Thêm sản phẩm</h3>
+
+    @using (Html.BeginForm("Create", "SanPham", FormMethod.Post,
+            new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TenSanPham)
+            @Html.TextBoxFor(m => m.TenSanPham, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.MoTa)
+            @Html.TextAreaFor(m => m.MoTa,
+                new { @class = "form-control", rows = 4 })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Danh mục")
+            @Html.DropDownListFor(
+                m => m.DanhMucID,
+                (SelectList)ViewBag.DanhMucID,
+                "-- Chọn danh mục --",
+                new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Thương hiệu")
+            @Html.DropDownListFor(
+                m => m.ThuongHieuID,
+                (SelectList)ViewBag.ThuongHieuID,
+                "-- Chọn thương hiệu --",
+                new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ảnh sản phẩm")
+            <input type="file"
+                   name="images"
+                   multiple
+                   accept="image/*"
+                   class="form-control" />
+            <small class="text-muted">
+                Có thể chọn nhiều ảnh (jpg, png)
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+    }
+</div>

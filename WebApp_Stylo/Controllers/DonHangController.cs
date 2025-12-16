@@ -16,17 +16,13 @@ namespace WebApp_Stylo.Controllers
         // GET: DonHang
         public ActionResult Index(string searchTerm, int page = 1)
         {
-            var orders = from o in db.DonHangs
-                         select o;
-
-            if (!String.IsNullOrEmpty(searchTerm))
-            {
-                orders = orders.Where(o => o.KhachHang.HoTen.Contains(searchTerm));
-            }
-
             int pageSize = 10;
             var query = db.DonHangs.AsQueryable();
 
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(o => o.KhachHang.HoTen.Contains(searchTerm));
+            }
             int totalRecords = query.Count();
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
@@ -115,6 +111,22 @@ namespace WebApp_Stylo.Controllers
             db.DonHangs.Remove(donHang);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var donHang = db.DonHangs
+                .Include(d => d.KhachHang)
+                .Include(d => d.VanDons)
+                .Include(d => d.DonHang_ChiTiet.Select(ct => ct.SanPham_BienThe))
+                .FirstOrDefault(d => d.DonHangID == id);
+
+            if (donHang == null)
+                return HttpNotFound();
+
+            return View(donHang);
         }
     }
 

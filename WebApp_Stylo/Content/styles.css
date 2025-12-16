@@ -1,12 +1,15 @@
 ﻿/* ======================== */
 /* Cấu trúc chung cho layout */
 /* ======================== */
-
-.wrapper {
+/*.page-wrapper {
+    width: 100%;
+}
+*/
+/*.wrapper {
     display: flex;
     height: 100vh;
 }
-
+*/
 /* Sidebar */
 .sidebar {
     width: 250px;
@@ -21,6 +24,8 @@
     display: flex;
     flex-direction: column; /* Đảm bảo các mục trong sidebar được hiển thị theo chiều dọc */
     text-align: center; /* Căn giữa chữ */
+    z-index: 1000;
+    transition: transform 0.3s ease;
 }
 
     /* List */
@@ -59,17 +64,51 @@
                 background-color: #333; /* Màu nền khi hover trên toàn bộ mục */
                 border-radius: 4px; /* Bo tròn các góc */
             }
+.sidebar-toggle {
+    position: absolute;
+    top: 12px;
+    right: -40px; 
+    width: 40px;
+    height: 40px;
+    background: #343a40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 0 6px 6px 0;
+}
+
+    .sidebar-toggle:hover {
+        color: #ffc107;
+    }
+.sidebar.collapsed {
+    transform: translateX(-250px);
+}
 
 /* ======================== */
 /* Hiển thị thông tin */
 /* ======================== */
 
 /* Content */
-.content {
-    margin-left: 250px; /* Để đảm bảo nội dung không bị che khuất bởi sidebar */
-    padding: 20px;
-    width: 100%;
+/*.body-content {
+    margin: 0 !important;
+    padding: 0 !important;
+}*/
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    padding: 30px;
+    box-sizing: border-box;
+    transition: margin-left 0.3s ease, width 0.3s ease;
 }
+    .main-content.full {
+        margin-left: 0;
+        width: 100%;
+    }
+    .main-content table {
+        width: 100%;
+    }
 
 /* Table hiển thị kết quả */
 table {
@@ -182,11 +221,13 @@ table .btn-container {
 /* Định dạng chung cho container */
 /* ======================== */
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+/*.body-content1 {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    padding: 30px;
+    box-sizing: border-box;
+}*/
 
 /* Tiêu đề */
 h2 {
@@ -198,7 +239,7 @@ h2 {
 }
 
 /* Form tìm kiếm */
-.form-group {
+.search-form .form-group {
     display: flex;
     justify-content: flex-end; /* Đẩy form tìm kiếm sang bên phải */
     align-items: center;
@@ -276,3 +317,64 @@ table {
         table .btn-danger:hover {
             background-color: #c82333;
         }
+
+
+
+/* ================= EDIT PAGE ================= */
+/* ===== EDIT PAGE – INPUT CENTER ===== */
+
+.edit-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* không dính sát giữa dọc */
+    margin-top: 40px;
+}
+
+.edit-card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    padding: 30px 32px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    text-align: center; 
+}
+
+    /* label vẫn căn trái */
+    .edit-card label {
+        display: block;
+        text-align: left;
+        font-weight: 500;
+        margin-bottom: 6px;
+    }
+
+/* group */
+.form-group1 {
+    margin-bottom: 18px;
+}
+
+/* INPUT / SELECT NGẮN + CĂN GIỮA */
+.edit-card .form-control {
+    width: 260px; /* 👈 chỉnh độ ngắn ở đây */
+    margin: 0 auto; /* 👈 căn giữa */
+}
+
+/* BUTTON */
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+
+
+.top-product-chart-wrapper {
+    max-width: 260px;
+    margin: auto;
+}
+
+#topProductChart {
+    max-height: 220px;
+}
+

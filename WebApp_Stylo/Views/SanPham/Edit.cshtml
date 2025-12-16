@@ -1,0 +1,41 @@
+﻿@model WebApp_Stylo.Models.SanPham
+
+@{
+    ViewBag.Title = "Sửa Sản Phẩm";
+}
+<div class="container">
+
+    <div class="edit-page">
+        <div class="edit-card">
+            <h3 class="card-title">Sửa Sản Phẩm</h3>
+
+            @using (Html.BeginForm("Edit", "SanPham", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TenSanPham)
+                    @Html.TextBoxFor(m => m.TenSanPham, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TenSanPham)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.DanhMucID)
+                    @Html.DropDownListFor(m => m.DanhMucID, new SelectList(ViewBag.DanhMucList, "DanhMucID", "Ten"), "Chọn Danh Mục", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.DanhMucID)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ThuongHieuID)
+                    @Html.DropDownListFor(m => m.ThuongHieuID, new SelectList(ViewBag.ThuongHieuList, "ThuongHieuID", "Ten"), "Chọn Thương Hiệu", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ThuongHieuID)
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                    <a href="@Url.Action("Index", "SanPham")" class="btn btn-default">Quay lại</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

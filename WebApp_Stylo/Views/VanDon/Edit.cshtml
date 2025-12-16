@@ -1,0 +1,61 @@
+﻿@model WebApp_Stylo.Models.VanDon
+
+@{
+    ViewBag.Title = "Sửa Vận Đơn";
+}
+<div class="container">
+
+    <div class="edit-page">
+        <div class="edit-card">
+            <h3 class="card-title">Sửa Vận Đơn</h3>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.VanDonID)
+
+                <div class="form-group">
+                    @Html.Label("Trạng thái giao")
+                    @Html.DropDownListFor(
+                        m => m.TrangThaiGiao,
+                        new SelectList(new[] {
+                            "CREATED",
+                            "PICKED",
+                            "INTRANSIT",
+                            "DELIVERED",
+                            "FAILED",
+                            "RETURNED"
+                        }),
+                        "-- Chọn trạng thái --",
+                        new { @class = "form-control" }
+                    )
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NgayGui)
+                    @Html.TextBoxFor(m => m.NgayGui, "{0:yyyy-MM-dd}",
+                        new { @class = "form-control", type = "date" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NgayGiaoDuKien)
+                    @Html.TextBoxFor(m => m.NgayGiaoDuKien, "{0:yyyy-MM-dd}",
+                        new { @class = "form-control", type = "date" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.DVVC)
+                    @Html.TextBoxFor(m => m.DVVC, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PhiVanChuyen)
+                    @Html.TextBoxFor(m => m.PhiVanChuyen, new { @class = "form-control", type = "number", step = "0.01" })
+                </div>
+
+                <button type="submit" class="btn btn-success">Lưu</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+            }
+        </div>
+    </div>
+</div>

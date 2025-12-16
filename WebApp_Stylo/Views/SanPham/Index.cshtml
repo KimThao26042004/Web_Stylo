@@ -12,39 +12,79 @@
     <!-- Form Tìm Kiếm -->
     @using (Html.BeginForm("Index", "SanPham", FormMethod.Get))
     {
-        <div class="form-group">
-            @Html.Label("Tìm kiếm sản phẩm:")
-            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên sản phẩm" })
-            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        <div class="search-form">
+            <div class="form-group">
+                @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên sản phẩm" })
+                <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+            </div>
         </div>
     }
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
                 <th class="index-column">STT</th>
-                @*<th>Ảnh</th>*@
-                <th>Tên Sản Phẩm</th>
-                <th>Mô Tả</th>
-                <th>Danh Mục</th>
-                <th>Thương Hiệu</th>
-                @*<th>Giá</th>*@
-                <th>Chức Năng</th>
+                <th class="index-column">Ảnh</th> 
+                <th class="index-column">Tên Sản Phẩm</th>
+                <th class="index-column">Mô Tả</th>
+                <th class="index-column">Danh Mục</th>
+                <th class="index-column">Thương Hiệu</th>
+                <th class="index-column">Chức Năng</th>
             </tr>
         </thead>
         <tbody>
+            @{
+                int stt = ((int)ViewBag.CurrentPage - 1) * 10;
+            }
+
             @foreach (var item in Model)
             {
-                <tr>
-                    <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>
+                stt++;
 
-                    <td class="index-column">@item.TenSanPham</td>
-                    <td class="index-column">@item.MoTa</td>
-                    <td class="index-column">@(item.DanhMuc != null ? item.DanhMuc.Ten : "Không có danh mục")</td>
-                    <td class="index-column">@(item.ThuongHieu != null ? item.ThuongHieu.Ten : "Không có thương hiệu")</td>
-                    @*<td class="index-column">@item.GiaBan.ToString("C")</td>*@
+                var img = item.AnhSanPhams?
+                    .OrderByDescending(a => a.IsPrimary)
+                    .FirstOrDefault();
+
+                string imgUrl = (img != null && !string.IsNullOrEmpty(img.URL))
+                    ? Url.Content("~/" + img.URL)
+                    : Url.Content("~/Content/images/no-image.png"); // bạn tạo file này hoặc đổi path
+
+                <tr>
+                    <td class="index-column">@stt</td>
+
+                    <td class="index-column">
+                        <img src="@imgUrl"
+                             alt="@item.TenSanPham"
+                             style="width:60px;height:60px;object-fit:cover;border-radius:6px;" />
+                    </td>
+
+                    <td class="index-column"
+                        style="
+                        width:180px;
+                        -webkit-box-orient:vertical;"
+                        title="@item.TenSanPham">
+                        @item.TenSanPham
+                    </td>
+
+                    <td class="index-column">
+                        @(string.IsNullOrEmpty(item.MoTa) ? "-" : item.MoTa)
+                    </td>
+                    <td class="index-column">
+                        @(item.DanhMuc != null ? item.DanhMuc.Ten : "Không có danh mục")
+                    </td>
+                    <td class="index-column">
+                        @(item.ThuongHieu != null ? item.ThuongHieu.Ten : "Không có thương hiệu")
+                    </td>
+
                     <td class="btn-container">
-                        <a href="@Url.Action("Edit", "SanPham", new { id = item.SanPhamID })" class="btn btn-warning btn-sm">Sửa</a>
-                        @using (Html.BeginForm("Delete", "SanPham", new { id = item.SanPhamID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');" }))
+                        <a href="@Url.Action("Details", "SanPham", new { id = item.SanPhamID })"
+                           class="btn btn-warning btn-sm">Chi tiết</a>
+
+                        <a href="@Url.Action("Edit", "SanPham", new { id = item.SanPhamID })"
+                           class="btn btn-warning btn-sm">Sửa</a>
+
+                        @using (Html.BeginForm("Delete", "SanPham", new { id = item.SanPhamID },
+                            FormMethod.Post,
+                            new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');" }))
                         {
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
@@ -52,9 +92,9 @@
                     </td>
                 </tr>
             }
-
         </tbody>
     </table>
+
 
     <!-- Thông báo số trang -->
     <div class="page-info">

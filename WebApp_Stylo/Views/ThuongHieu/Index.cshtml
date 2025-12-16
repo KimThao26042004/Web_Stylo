@@ -4,77 +4,81 @@
     ViewBag.Title = "Danh Sách Thương Hiệu";
 }
 
-<h2>Danh Sách Thương Hiệu</h2>
-<a href="@Url.Action("Create", "ThuongHieu")" class="btn btn-success">Thêm Thương Hiệu</a>
+<div class="container">
+    <h2>Danh Sách Thương Hiệu</h2>
+    <a href="@Url.Action("Create", "ThuongHieu")" class="btn btn-success">Thêm Thương Hiệu</a>
 
-<!-- Form tìm kiếm -->
-@using (Html.BeginForm("Index", "ThuongHieu", FormMethod.Get))
-{
-    <div class="form-group">
-        <input type="text" name="searchTerm" placeholder="Nhập tên thương hiệu" class="form-control" />
-        <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
-    </div>
-}
+    <!-- Form tìm kiếm -->
+    @using (Html.BeginForm("Index", "ThuongHieu", FormMethod.Get))
+    {
+        <div class="search-form">
+            <div class="form-group">
+                <input type="text" name="searchTerm" placeholder="Nhập tên thương hiệu" class="form-control" />
+                <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+            </div>
+        </div>
+    }
 
-<!-- Bảng thông tin Thương Hiệu -->
-<table class="table table-bordered mt-3">
-    <thead>
-        <tr>
-            <th class="index-column">STT</th>
-            <th class="index-column">Tên Thương Hiệu</th>
-            <th class="index-column">Chức Năng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>  <!-- Cột số thứ tự -->
-                <td class="index-column">@item.Ten</td>
-                <td class="btn-container">
-                    <a href="@Url.Action("Edit", "ThuongHieu", new { id = item.ThuongHieuID })" class="btn btn-warning btn-sm">Sửa</a>
-                    @using (Html.BeginForm("Delete", "ThuongHieu", new { id = item.ThuongHieuID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa thương hiệu này?');" }))
+            <!-- Bảng thông tin Thương Hiệu -->
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th class="index-column">STT</th>
+                        <th class="index-column">Tên Thương Hiệu</th>
+                        <th class="index-column">Chức Năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
                     {
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                        <tr>
+                            <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>  <!-- Cột số thứ tự -->
+                            <td class="index-column">@item.Ten</td>
+                            <td class="btn-container">
+                                <a href="@Url.Action("Edit", "ThuongHieu", new { id = item.ThuongHieuID })" class="btn btn-warning btn-sm">Sửa</a>
+                                @using (Html.BeginForm("Delete", "ThuongHieu", new { id = item.ThuongHieuID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa thương hiệu này?');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                }
+                            </td>
+                        </tr>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+            </table>
 
-<!-- Thông báo số trang -->
-<div class="page-info">
-    <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
-    <span>Hiển thị từ @((@ViewBag.CurrentPage - 1) * 10 + 1) đến @Math.Min(@ViewBag.CurrentPage * 10, @ViewBag.TotalPages * 10)</span>
-</div>
+            <!-- Thông báo số trang -->
+            <div class="page-info">
+                <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
+                <span>Hiển thị từ @((@ViewBag.CurrentPage - 1) * 10 + 1) đến @Math.Min(@ViewBag.CurrentPage * 10, @ViewBag.TotalPages * 10)</span>
+            </div>
 
-<!-- Phân trang với mũi tên và ô nhập số trang -->
-<div class="pagination">
-    <!-- Mũi tên trái -->
-    @if (ViewBag.CurrentPage > 1)
-    {
-        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link arrow">&#8592;</a>
-    }
-    else
-    {
-        <span class="page-link arrow">&#8592;</span>
-    }
+            <!-- Phân trang với mũi tên và ô nhập số trang -->
+            <div class="pagination">
+                <!-- Mũi tên trái -->
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link arrow">&#8592;</a>
+                }
+                else
+                {
+                    <span class="page-link arrow">&#8592;</span>
+                }
 
-    <!-- Ô nhập số trang -->
-    <form method="get" action="@Url.Action("Index", "ThuongHieu")" class="page-control">
-        <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
-    </form>
+                <!-- Ô nhập số trang -->
+                <form method="get" action="@Url.Action("Index", "ThuongHieu")" class="page-control">
+                    <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
+                </form>
 
-    <!-- Mũi tên phải -->
-    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-    {
-        <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link arrow">&#8594;</a>
-    }
-    else
-    {
-        <span class="page-link arrow">&#8594;</span>
-    }
-</div>
+                <!-- Mũi tên phải -->
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link arrow">&#8594;</a>
+                }
+                else
+                {
+                    <span class="page-link arrow">&#8594;</span>
+                }
+            </div>
 
+        </div>

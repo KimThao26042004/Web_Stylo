@@ -16,16 +16,13 @@ namespace WebApp_Stylo.Controllers
         // GET: VanDon
         public ActionResult Index(string searchTerm, int page = 1)
         {
-            var shipping = from v in db.VanDons
-                           select v;
+            int pageSize = 10;
+            var query = db.VanDons.AsQueryable();
 
             if (!String.IsNullOrEmpty(searchTerm))
             {
-                shipping = shipping.Where(v => v.MaVanDon.Contains(searchTerm));
+                query = query.Where(v => v.MaVanDon.Contains(searchTerm));
             }
-
-            int pageSize = 10;
-            var query = db.VanDons.AsQueryable();
 
             int totalRecords = query.Count();
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
@@ -66,30 +63,37 @@ namespace WebApp_Stylo.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VanDon vanDon = db.VanDons.Find(id);
+
+            var vanDon = db.VanDons.Find(id);
             if (vanDon == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(vanDon);
         }
 
-        // POST: VanDon/Edit/5
+        // POST: VanDon/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(VanDon vanDon)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(vanDon).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(vanDon);
+            if (!ModelState.IsValid)
+                return View(vanDon);
+
+            var existing = db.VanDons.Find(vanDon.VanDonID);
+            if (existing == null)
+                return HttpNotFound();
+
+            existing.TrangThaiGiao = vanDon.TrangThaiGiao;
+            existing.NgayGui = vanDon.NgayGui;
+            existing.NgayGiaoDuKien = vanDon.NgayGiaoDuKien;
+            existing.DVVC = vanDon.DVVC;
+            existing.PhiVanChuyen = vanDon.PhiVanChuyen;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+
 
         // GET: VanDon/Delete/5
         public ActionResult Delete(int? id)

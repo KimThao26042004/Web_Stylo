@@ -1,0 +1,41 @@
+﻿@model WebApp_Stylo.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "Sửa Tài Khoản";
+}
+<div class="container">
+    <div class="edit-page">
+        <div class="edit-card">
+            <h3 class="card-title">Sửa Tài Khoản</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.TaiKhoanID)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TenDangNhap)
+                    @Html.TextBoxFor(m => m.TenDangNhap, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TenDangNhap)
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Mật khẩu (để trống nếu không đổi)")
+                    @Html.PasswordFor(m => m.MatKhauHash, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Role)
+                    @Html.DropDownListFor(
+                        m => m.Role,
+                        new SelectList(new[] { "Admin", "User" }),
+                        "-- Chọn role --",
+                        new { @class = "form-control" }
+                    )
+                </div>
+
+                <button type="submit" class="btn btn-success">Lưu</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+            }
+        </div>
+    </div>
+</div>

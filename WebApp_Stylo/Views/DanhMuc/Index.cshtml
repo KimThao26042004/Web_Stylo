@@ -10,30 +10,45 @@
 
     @using (Html.BeginForm("Index", "DanhMuc", FormMethod.Get))
     {
-        <div class="form-group">
-            @Html.Label("Tìm kiếm danh mục:")
-            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên danh mục" })
-            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        <div class="search-form">
+            <div class="form-group">
+                @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên danh mục" })
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
         </div>
     }
+
 
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
                 <th class="index-column">STT</th>
                 <th class="index-column">Tên Danh Mục</th>
+                <th class="index-column">Phân Loại</th>
                 <th class="index-column">Chức Năng</th>
             </tr>
         </thead>
         <tbody>
+            @{
+                int stt = (ViewBag.CurrentPage - 1) * 10;
+            }
             @foreach (var item in Model)
             {
+                stt++;
                 <tr>
-                    <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td> 
+                    <td class="index-column">@stt</td>
                     <td class="index-column">@item.Ten</td>
+                    <td class="index-column">
+                        @(item.PhanLoai != null ? item.PhanLoai.Ten : "—")
+                    </td>
+
                     <td class="btn-container">
-                        <a href="@Url.Action("Edit", "DanhMuc", new { id = item.DanhMucID })" class="btn btn-warning btn-sm">Sửa</a>
-                        @using (Html.BeginForm("Delete", "DanhMuc", new { id = item.DanhMucID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa danh mục này?');" }))
+                        <a href="@Url.Action("Edit", "DanhMuc", new { id = item.DanhMucID })"
+                           class="btn btn-warning btn-sm">Sửa</a>
+
+                        @using (Html.BeginForm("Delete", "DanhMuc", new { id = item.DanhMucID },
+                            FormMethod.Post,
+                            new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa danh mục này?');" }))
                         {
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
@@ -42,7 +57,9 @@
                 </tr>
             }
         </tbody>
+
     </table>
+
     <!-- Thông báo số trang -->
     <div class="page-info">
         <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
@@ -62,7 +79,7 @@
         }
 
         <!-- Ô nhập số trang -->
-        <form method="get" action="@Url.Action("Index", "DanhMuc")" class="page-control">
+        <form method="get" action="@Url.Action("Index", "PhanLoai")" class="page-control">
             <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
         </form>
 

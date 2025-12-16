@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,79 +18,133 @@ namespace WebApp_Stylo.Controllers
         public ActionResult Index(string searchTerm, int page = 1)
         {
             int pageSize = 10;
-            var query = db.SanPhams.Include(s => s.DanhMuc).Include(s => s.ThuongHieu).AsQueryable();
+
+            var query = db.SanPhams
+                .Include(s => s.DanhMuc)
+                .Include(s => s.ThuongHieu)
+                .Include(s => s.AnhSanPhams)  
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(searchTerm))
-            {
                 query = query.Where(s => s.TenSanPham.Contains(searchTerm));
-            }
 
             int totalRecords = query.Count();
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
-            var products = db.SanPhams
-                             .Where(s => string.IsNullOrEmpty(searchTerm) || s.TenSanPham.Contains(searchTerm))
-                             .OrderBy(s => s.TenSanPham)
-                             .Skip((page - 1) * pageSize)
-                             .Take(pageSize)
-                             .Select(s => new { s.SanPhamID, s.TenSanPham, s.DanhMuc.Ten, s.ThuongHieu })  // Chọn cột cần thiết
-                             .ToList();
-
+            var products = query
+                .OrderBy(s => s.SanPhamID)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
+            ViewBag.SearchTerm = searchTerm;
 
-            return View(products); 
+            return View(products);
         }
+
+
 
         // GET: SanPham/Create
         public ActionResult Create()
         {
+            ViewBag.DanhMucID = new SelectList(db.DanhMucs, "DanhMucID", "Ten");
+            ViewBag.ThuongHieuID = new SelectList(db.ThuongHieux, "ThuongHieuID", "Ten");
             return View();
         }
+
 
         // POST: SanPham/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SanPham sanPham)
+        public ActionResult Create(
+    SanPham sanPham,
+    IEnumerable<HttpPostedFileBase> images)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.SanPhams.Add(sanPham);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.DanhMucID = new SelectList(db.DanhMucs, "DanhMucID", "Ten", sanPham.DanhMucID);
+                ViewBag.ThuongHieuID = new SelectList(db.ThuongHieux, "ThuongHieuID", "Ten", sanPham.ThuongHieuID);
+                return View(sanPham);
             }
-            return View(sanPham);
+
+            // 1️⃣ Lưu sản phẩm trước để có SanPhamID
+            db.SanPhams.Add(sanPham);
+            db.SaveChanges();
+
+            // 2️⃣ Tạo thư mục ảnh theo SanPhamID
+            if (images != null)
+            {
+                string folderPath = Server.MapPath($"~/Content/images/{sanPham.SanPhamID}");
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
+
+                int index = 1;
+                foreach (var file in images)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string fileName = $"{sanPham.SanPhamID}_{index}{Path.GetExtension(file.FileName)}";
+                        string fullPath = Path.Combine(folderPath, fileName);
+                        file.SaveAs(fullPath);
+
+                        // 3️⃣ Lưu DB AnhSanPham
+                        db.AnhSanPhams.Add(new AnhSanPham
+                        {
+                            SanPhamID = sanPham.SanPhamID,
+                            URL = $"Content/images/{sanPham.SanPhamID}/{fileName}",
+                            IsPrimary = (index == 1)
+                        });
+
+                        index++;
+                    }
+                }
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
+
 
         // GET: SanPham/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SanPham sanPham = db.SanPhams.Find(id);
+
+            var sanPham = db.SanPhams.Find(id);
             if (sanPham == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(sanPham);
         }
 
-        // POST: SanPham/Edit/5
+        // POST: SanPham/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SanPham sanPham)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(sanPham).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(sanPham);
+            if (!ModelState.IsValid)
+                return View(sanPham);
+
+            var existing = db.SanPhams.Find(sanPham.SanPhamID);
+            if (existing == null)
+                return HttpNotFound();
+
+            // 👉 cập nhật thủ công
+            existing.TenSanPham = sanPham.TenSanPham;
+            //existing.Gia = sanPham.Gia;
+            existing.MoTa = sanPham.MoTa;
+            existing.DanhMucID = sanPham.DanhMucID;
+            existing.ThuongHieuID = sanPham.ThuongHieuID;
+            //existing.SoLuong = sanPham.SoLuong;
+            //existing.TrangThai = sanPham.TrangThai;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+
 
         // GET: SanPham/Delete/5
         public ActionResult Delete(int? id)

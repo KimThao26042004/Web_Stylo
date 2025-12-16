@@ -1,0 +1,29 @@
+﻿@model WebApp_Stylo.Models.ThuongHieu
+
+@{
+    ViewBag.Title = "Sửa Thương Hiệu";
+}
+<div class="container">
+
+
+    <div class="edit-page">
+        <div class="edit-card">
+            <h3 class="card-title">Sửa Thương Hiệu</h3>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.ThuongHieuID)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Ten)
+                    @Html.TextBoxFor(m => m.Ten, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Ten)
+                </div>
+
+                <button type="submit" class="btn btn-success">Lưu</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+            }
+        </div>
+    </div>
+</div>

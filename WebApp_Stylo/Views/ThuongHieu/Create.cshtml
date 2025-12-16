@@ -1,0 +1,18 @@
+﻿@model WebApp_Stylo.Models.ThuongHieu
+<div class="container">
+
+    <h3>Thêm thương hiệu</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Ten)
+            @Html.TextBoxFor(m => m.Ten, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+    }
+</div>

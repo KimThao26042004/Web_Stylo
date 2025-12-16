@@ -17,16 +17,15 @@ namespace WebApp_Stylo.Controllers
         // GET: DanhMuc
         public ActionResult Index(string searchTerm, int page = 1)
         {
-            var categories = from c in db.DanhMucs
-                             select c;
+            int pageSize = 10;
+            var query = db.DanhMucs.AsQueryable();
 
             if (!String.IsNullOrEmpty(searchTerm))
             {
-                categories = categories.Where(c => c.Ten.Contains(searchTerm));
+                query = query.Where(c => c.Ten.Contains(searchTerm));
             }
 
-            int pageSize = 10;
-            var query = db.DanhMucs.AsQueryable();
+
 
             int totalRecords = query.Count();
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
@@ -46,6 +45,7 @@ namespace WebApp_Stylo.Controllers
         // GET: DanhMuc/Create
         public ActionResult Create()
         {
+            ViewBag.PhanLoaiID = new SelectList(db.PhanLoais, "PhanLoaiID", "Ten");
             return View();
         }
 
@@ -54,43 +54,71 @@ namespace WebApp_Stylo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(DanhMuc danhMuc)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.DanhMucs.Add(danhMuc);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.PhanLoaiID = new SelectList(db.PhanLoais, "PhanLoaiID", "Ten", danhMuc.PhanLoaiID);
+                return View(danhMuc);
             }
-            return View(danhMuc);
+
+            db.DanhMucs.Add(danhMuc);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+
 
         // GET: DanhMuc/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DanhMuc danhMuc = db.DanhMucs.Find(id);
+
+            var danhMuc = db.DanhMucs.Find(id);
             if (danhMuc == null)
-            {
                 return HttpNotFound();
-            }
+
+            ViewBag.PhanLoaiID = new SelectList(
+                db.PhanLoais.ToList(),  
+                "PhanLoaiID",           
+                "Ten",
+                danhMuc.PhanLoaiID     
+            );
+
             return View(danhMuc);
         }
 
-        // POST: DanhMuc/Edit/5
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(DanhMuc danhMuc)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Entry(danhMuc).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.PhanLoaiID = new SelectList(
+                    db.PhanLoais, "PhanLoaiID", "Ten", danhMuc.PhanLoaiID);
+                return View(danhMuc);
             }
-            return View(danhMuc);
+
+            // Kiểm tra khóa ngoại
+            if (!db.PhanLoais.Any(p => p.PhanLoaiID == danhMuc.PhanLoaiID))
+            {
+                ModelState.AddModelError("PhanLoaiID", "Phân loại không hợp lệ");
+                ViewBag.PhanLoaiID = new SelectList(
+                    db.PhanLoais, "PhanLoaiID", "Ten", danhMuc.PhanLoaiID);
+                return View(danhMuc);
+            }
+
+            var existing = db.DanhMucs.Find(danhMuc.DanhMucID);
+            if (existing == null) return HttpNotFound();
+
+            existing.Ten = danhMuc.Ten;
+            existing.PhanLoaiID = danhMuc.PhanLoaiID;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+
+
 
         // GET: DanhMuc/Delete/5
         public ActionResult Delete(int? id)

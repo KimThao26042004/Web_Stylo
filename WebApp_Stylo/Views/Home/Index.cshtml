@@ -1,33 +1,213 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Dashboard";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<div class="container mt-4">
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="mb-0">Doanh thu</h4>
+
+                <div>
+                    <button class="btn btn-primary btn-sm" onclick="loadWeek()">Theo tuần</button>
+                    <button class="btn btn-primary btn-sm" onclick="loadMonth()">Theo tháng</button>
+                </div>
+            </div>
+
+            <canvas id="revenueChart" height="90"></canvas>
+        </div>
     </div>
-</main>
+
+    <div class="row mt-4">
+
+        <!-- TỔNG DOANH THU -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h6 class="text-muted mb-2">Tổng doanh thu</h6>
+                    <h3 class="text-primary mb-0" id="totalRevenue">0 ₫</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- KHÁCH HÀNG -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="mb-3">Khách hàng</h6>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tổng khách hàng</span>
+                        <strong id="totalCustomer">0</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <span>Khách mới tháng này</span>
+                        <strong id="newCustomer">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOP 10 SẢN PHẨM -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="mb-3">Top 10 sản phẩm bán chạy</h6>
+                    <div class="top-product-chart-wrapper">
+                        <canvas id="topProductChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+<script>
+    let chart;
+    let topProductChart;
+    function renderChart(labels, data) {
+        if (chart) chart.destroy();
+
+        chart = new Chart(document.getElementById('revenueChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: data,
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13,110,253,0.15)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: value => value.toLocaleString('vi-VN')
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function loadWeek() {
+        fetch('/Home/RevenueByWeek')
+            .then(r => r.json())
+            .then(res => {
+                console.log(res);
+                renderChart(
+                    res.map(x => 'Tuần ' + x.Week),
+                    res.map(x => x.Total)
+                );
+            });
+    }
+
+    function loadMonth() {
+        fetch('/Home/RevenueByMonth')
+            .then(r => r.json())
+            .then(res => {
+                console.log(res);
+                renderChart(
+                    res.map(x => x.Label),
+                    res.map(x => x.Total)
+                );
+            });
+    }
+    function loadTopSellingProducts() {
+        fetch('/Home/TopSellingProducts')
+            .then(r => r.json())
+            .then(res => {
+
+                if (topProductChart) topProductChart.destroy();
+
+                topProductChart = new Chart(
+                    document.getElementById('topProductChart'),
+                    {
+                        type: 'doughnut',
+                        data: {
+                            labels: res.map(x => x.Product),
+                            datasets: [{
+                                data: res.map(x => x.Quantity),
+                                backgroundColor: [
+                                    '#0d6efd', '#20c997', '#ffc107',
+                                    '#dc3545', '#6f42c1',
+                                    '#fd7e14', '#198754',
+                                    '#0dcaf0', '#adb5bd', '#6610f2'
+                                ]
+                            }]
+                        },
+                        options: {
+                            cutout: '65%',
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: { boxWidth: 12 }
+                                },
+                                datalabels: {
+                                    color: '#fff',
+                                    font: { weight: 'bold' },
+                                    formatter: (value, ctx) => {
+                                        let sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        let percent = (value * 100 / sum).toFixed(1) + '%';
+                                        return percent;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+            });
+    }
+
+
+    function loadCustomerStats() {
+        fetch('/Home/CustomerStats')
+            .then(r => r.json())
+            .then(res => {
+                document.getElementById('totalCustomer').innerText =
+                    res.Total.toLocaleString('vi-VN');
+
+                document.getElementById('newCustomer').innerText =
+                    res.ThisMonth.toLocaleString('vi-VN');
+            });
+    }
+
+    function loadTotalRevenue() {
+        fetch('@Url.Action("TotalRevenue", "Home")')
+            .then(r => {
+                console.log('Status:', r.status);
+                return r.json();
+            })
+            .then(total => {
+                console.log('Total revenue:', total);
+                document.getElementById('totalRevenue').innerText =
+                    total.toLocaleString('vi-VN') + ' ₫';
+            })
+            .catch(err => console.error(err));
+    }
+
+
+
+    loadMonth();
+    loadTotalRevenue();
+    loadTopSellingProducts();
+    loadCustomerStats();
+
+</script>

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using WebApp_Stylo.Models;
 
@@ -15,16 +13,13 @@ namespace WebApp_Stylo.Controllers
 
         public ActionResult Index(string searchTerm, int page = 1)
         {
-            var accounts = from a in db.TaiKhoans
-                           select a;
-
-            if (!String.IsNullOrEmpty(searchTerm))
-            {
-                accounts = accounts.Where(a => a.TenDangNhap.Contains(searchTerm));
-            }
 
             int pageSize = 10;
             var query = db.TaiKhoans.AsQueryable();
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(a => a.TenDangNhap.ToLower().Contains(searchTerm.ToLower()));
+            }
 
             int totalRecords = query.Count();
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
@@ -41,49 +36,62 @@ namespace WebApp_Stylo.Controllers
             return View(xaccounts);
         }
 
+        // GET: TaiKhoan/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        // POST: TaiKhoan/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TaiKhoan taiKhoan)
         {
-            if (ModelState.IsValid)
-            {
-                db.TaiKhoans.Add(taiKhoan);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(taiKhoan);
+            if (!ModelState.IsValid)
+                return View(taiKhoan);
+
+            db.TaiKhoans.Add(taiKhoan);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
+
+        // GET: TaiKhoan/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TaiKhoan taiKhoan = db.TaiKhoans.Find(id);
+
+            var taiKhoan = db.TaiKhoans.Find(id);
             if (taiKhoan == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(taiKhoan);
         }
 
+        // POST: TaiKhoan/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TaiKhoan taiKhoan)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(taiKhoan);
+
+            var existing = db.TaiKhoans.Find(taiKhoan.TaiKhoanID);
+            if (existing == null)
+                return HttpNotFound();
+
+            existing.TenDangNhap = taiKhoan.TenDangNhap;
+            existing.Role = taiKhoan.Role;
+
+            // chỉ update mật khẩu nếu có nhập
+            if (!string.IsNullOrWhiteSpace(taiKhoan.MatKhauHash))
             {
-                db.Entry(taiKhoan).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                existing.MatKhauHash = taiKhoan.MatKhauHash.Trim();
             }
-            return View(taiKhoan);
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int? id)
@@ -109,6 +117,24 @@ namespace WebApp_Stylo.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var taiKhoan = db.TaiKhoans
+                .Include(t => t.Role)
+                .Include(t => t.KhachHangs)
+                .Include(t => t.NhanViens)
+                .FirstOrDefault(t => t.TaiKhoanID == id);
+
+            if (taiKhoan == null)
+                return HttpNotFound();
+
+            return View(taiKhoan);
+        }
+
     }
 
 }

@@ -1,0 +1,29 @@
+﻿@model WebApp_Stylo.Models.TaiKhoan
+
+<div class="container">
+    <h3>Chi tiết tài khoản</h3>
+
+    <p><b>Tên đăng nhập:</b> @Model.TenDangNhap</p>
+    <p><b>Role:</b> @Model.Role?.Name</p>
+    <p><b>Ngày tạo:</b> @Model.created_at</p>
+
+    @if (Model.KhachHangs != null && Model.KhachHangs.Any())
+    {
+        var kh = Model.KhachHangs.First();
+        <hr />
+        <h5>Thông tin khách hàng</h5>
+        <p><b>Họ tên:</b> @kh.HoTen</p>
+        <p><b>Email:</b> @kh.Email</p>
+    }
+
+    @if (Model.NhanViens != null && Model.NhanViens.Any())
+    {
+        var nv = Model.NhanViens.First();
+        <hr />
+        <h5>Thông tin nhân viên</h5>
+        <p><b>Họ tên:</b> @nv.HoTen</p>
+        <p><b>Chức vụ:</b> @nv.ChucVu</p>
+    }
+
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+</div>

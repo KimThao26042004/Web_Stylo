@@ -3,46 +3,41 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*<title>@ViewBag.Title - My ASP.NET Application</title>*@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        @*<div class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </div>*@
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <ul class="nav">
-                    <li><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Trang chủ</a></li>
-                    <li><a href="@Url.Action("Index", "ThuongHieu")"><i class="fas fa-tags"></i> Thương Hiệu</a></li>
-                    <li><a href="@Url.Action("Index", "TaiKhoan")"><i class="fas fa-user"></i> Tài Khoản</a></li>
-                    <li><a href="@Url.Action("Index", "PhanLoai")"><i class="fas fa-th"></i> Phân Loại</a></li>
-                    <li><a href="@Url.Action("Index", "DanhMuc")"><i class="fas fa-list"></i> Danh Mục</a></li>
-                    <li><a href="@Url.Action("Index", "SanPham")"><i class="fas fa-cogs"></i> Sản Phẩm</a></li>
-                    <li><a href="@Url.Action("Index", "DonHang")"><i class="fas fa-box"></i> Đơn Hàng</a></li>
-                    <li><a href="@Url.Action("Index", "VanDon")"><i class="fas fa-shipping-fast"></i> Vận Đơn</a></li>
-                </ul>
-            </div>
-
-        </div>
-        </nav>
-
-
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <ul class="nav flex-column"> 
+            <li><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Trang chủ</a></li> 
+            <li><a href="@Url.Action("Index", "ThuongHieu")"><i class="fas fa-tags"></i> Thương Hiệu</a></li> 
+            <li><a href="@Url.Action("Index", "TaiKhoan")"><i class="fas fa-user"></i> Tài Khoản</a></li> 
+            <li><a href="@Url.Action("Index", "PhanLoai")"><i class="fas fa-th"></i> Phân Loại</a></li> 
+            <li><a href="@Url.Action("Index", "DanhMuc")"><i class="fas fa-list"></i> Danh Mục</a></li> 
+            <li><a href="@Url.Action("Index", "SanPham")"><i class="fas fa-cogs"></i> Sản Phẩm</a></li> 
+            <li><a href="@Url.Action("Index", "DonHang")"><i class="fas fa-box"></i> Đơn Hàng</a></li> 
+            <li><a href="@Url.Action("Index", "VanDon")"><i class="fas fa-shipping-fast"></i> Vận Đơn</a></li> 
+            <li><a href="@Url.Action("Index", "Login")"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li> 
+        </ul>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <div class="main-content" id="mainContent">
+        @RenderBody()
+    </div>
+
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)*@
 </body>
 </html>

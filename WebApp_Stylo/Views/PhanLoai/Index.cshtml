@@ -10,71 +10,72 @@
 
     @using (Html.BeginForm("Index", "PhanLoai", FormMethod.Get))
     {
-        <div class="form-group">
-            @Html.Label("Tìm kiếm phân loại:")
-            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên phân loại" })
-            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        <div class="search-form">
+            <div class="form-group">
+                @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên phân loại" })
+                <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+            </div>
         </div>
-    }
+     }
 
-    <table class="table table-bordered mt-3">
-        <thead>
-            <tr>
-                <th class="index-column">STT</th>
-                <th class="index-column">Tên Phân Loại</th>
-                <th class="index-column">Chức Năng</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>  <!-- Cột số thứ tự -->
-                    <td class="index-column">@item.Ten</td>
-                    <td class="btn-container">
-                        <a href="@Url.Action("Edit", "PhanLoai", new { id = item.PhanLoaiID })" class="btn btn-warning btn-sm">Sửa</a>
-                        @using (Html.BeginForm("Delete", "PhanLoai", new { id = item.PhanLoaiID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa phân loại này?');" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th class="index-column">STT</th>
+                        <th class="index-column">Tên Phân Loại</th>
+                        <th class="index-column">Chức Năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>  <!-- Cột số thứ tự -->
+                            <td class="index-column">@item.Ten</td>
+                            <td class="btn-container">
+                                <a href="@Url.Action("Edit", "PhanLoai", new { id = item.PhanLoaiID })" class="btn btn-warning btn-sm">Sửa</a>
+                                @using (Html.BeginForm("Delete", "PhanLoai", new { id = item.PhanLoaiID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa phân loại này?');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-    <!-- Thông báo số trang -->
-    <div class="page-info">
-        <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
-        <span>Hiển thị từ @((@ViewBag.CurrentPage - 1) * 10 + 1) đến @Math.Min(@ViewBag.CurrentPage * 10, @ViewBag.TotalPages * 10)</span>
-    </div>
+            <!-- Thông báo số trang -->
+            <div class="page-info">
+                <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
+                <span>Hiển thị từ @((@ViewBag.CurrentPage - 1) * 10 + 1) đến @Math.Min(@ViewBag.CurrentPage * 10, @ViewBag.TotalPages * 10)</span>
+            </div>
 
-    <!-- Phân trang với mũi tên và ô nhập số trang -->
-    <div class="pagination">
-        <!-- Mũi tên trái -->
-        @if (ViewBag.CurrentPage > 1)
-        {
-            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link arrow">&#8592;</a>
-        }
-        else
-        {
-            <span class="page-link arrow">&#8592;</span>
-        }
+            <!-- Phân trang với mũi tên và ô nhập số trang -->
+            <div class="pagination">
+                <!-- Mũi tên trái -->
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link arrow">&#8592;</a>
+                }
+                else
+                {
+                    <span class="page-link arrow">&#8592;</span>
+                }
 
-        <!-- Ô nhập số trang -->
-        <form method="get" action="@Url.Action("Index", "PhanLoai")" class="page-control">
-            <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
-        </form>
+                <!-- Ô nhập số trang -->
+                <form method="get" action="@Url.Action("Index", "PhanLoai")" class="page-control">
+                    <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
+                </form>
 
-        <!-- Mũi tên phải -->
-        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-        {
-            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link arrow">&#8594;</a>
-        }
-        else
-        {
-            <span class="page-link arrow">&#8594;</span>
-        }
-    </div>
-</div>
+                <!-- Mũi tên phải -->
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link arrow">&#8594;</a>
+                }
+                else
+                {
+                    <span class="page-link arrow">&#8594;</span>
+                }
+            </div>
+        </div>

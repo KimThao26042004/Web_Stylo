@@ -50,43 +50,47 @@ namespace WebApp_Stylo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ThuongHieu thuongHieu)
         {
-            if (ModelState.IsValid)
-            {
-                db.ThuongHieux.Add(thuongHieu);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(thuongHieu);
+            if (!ModelState.IsValid)
+                return View(thuongHieu);
+
+            db.ThuongHieux.Add(thuongHieu);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+
 
         // GET: ThuongHieu/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ThuongHieu thuongHieu = db.ThuongHieux.Find(id);
+
+            var thuongHieu = db.ThuongHieux.Find(id);
             if (thuongHieu == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(thuongHieu);
         }
 
-        // POST: ThuongHieu/Edit/5
+        // POST: ThuongHieu/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ThuongHieu thuongHieu)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(thuongHieu).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(thuongHieu);
+            if (!ModelState.IsValid)
+                return View(thuongHieu);
+
+            var existing = db.ThuongHieux.Find(thuongHieu.ThuongHieuID);
+            if (existing == null)
+                return HttpNotFound();
+
+            existing.Ten = thuongHieu.Ten;
+            //existing.MoTa = thuongHieu.MoTa;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
+
 
         // GET: ThuongHieu/Delete/5
         public ActionResult Delete(int? id)

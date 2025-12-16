@@ -9,77 +9,78 @@
 
     @using (Html.BeginForm("Index", "DonHang", FormMethod.Get))
     {
-        <div class="form-group">
-            @Html.Label("Tìm kiếm đơn hàng:")
-            @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên khách hàng" })
-            <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+        <div class="search-form">
+            <div class="form-group">
+                @Html.TextBox("searchTerm", null, new { @class = "form-control", placeholder = "Nhập tên khách hàng" })
+                <button type="submit" class="btn btn-primary mt-2">Tìm kiếm</button>
+            </div>
         </div>
-    }
-
-    <table class="table table-bordered mt-3">
-        <thead>
-            <tr>
-                <th class="index-column">STT</th>
-                <th class="index-column">Mã Đơn Hàng</th>
-                <th class="index-column">Khách Hàng</th>
-                <th class="index-column">Ngày Đặt</th>
-                <th class="index-column">Tổng Tiền</th>
-                <th class="index-column">Chức Năng</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>  <!-- Cột số thứ tự -->
-                    <td class="index-column">@item.DonHangID</td>
-                    <td class="index-column">@item.KhachHang.HoTen</td>
-                    <td class="index-column">@item.NgayDat.ToString("dd/MM/yyyy")</td>
-                    <td class="index-column">@item.TongThanhToan.ToString("C")</td>
-                    <td class="btn-container">
-                        <a href="@Url.Action("Edit", "DonHang", new { id = item.DonHangID })" class="btn btn-warning btn-sm">Sửa</a>
-                        @using (Html.BeginForm("Delete", "DonHang", new { id = item.DonHangID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?');" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                        }
-                    </td>
-                </tr>
             }
-        </tbody>
-    </table>
 
-    <!-- Thông báo số trang -->
-    <div class="page-info">
-        <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
-        <span>Hiển thị từ @((@ViewBag.CurrentPage - 1) * 10 + 1) đến @Math.Min(@ViewBag.CurrentPage * 10, @ViewBag.TotalPages * 10)</span>
-    </div>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th class="index-column">STT</th>
+                        <th class="index-column">Mã Đơn Hàng</th>
+                        <th class="index-column">Khách Hàng</th>
+                        <th class="index-column">Ngày Đặt</th>
+                        <th class="index-column">Tổng Tiền</th>
+                        <th class="index-column">Chức Năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="index-column">@(Model.ToList().IndexOf(item) + 1)</td>  <!-- Cột số thứ tự -->
+                            <td class="index-column">@item.DonHangID</td>
+                            <td class="index-column">@item.KhachHang.HoTen</td>
+                            <td class="index-column">@item.NgayDat.ToString("dd/MM/yyyy")</td>
+                            <td class="index-column">@item.TongThanhToan.ToString("C")</td>
+                            <td class="btn-container">
+                                <a href="@Url.Action("Details", "DonHang", new { id = item.DonHangID })" class="btn btn-warning btn-sm">Chi tiết</a>
+                                @using (Html.BeginForm("Delete", "DonHang", new { id = item.DonHangID }, FormMethod.Post, new { onsubmit = "return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-    <!-- Phân trang với mũi tên và ô nhập số trang -->
-    <div class="pagination">
-        <!-- Mũi tên trái -->
-        @if (ViewBag.CurrentPage > 1)
-        {
-            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link arrow">&#8592;</a>
-        }
-        else
-        {
-            <span class="page-link arrow">&#8592;</span>
-        }
+            <!-- Thông báo số trang -->
+            <div class="page-info">
+                <span>Số trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</span>
+                <span>Hiển thị từ @((@ViewBag.CurrentPage - 1) * 10 + 1) đến @Math.Min(@ViewBag.CurrentPage * 10, @ViewBag.TotalPages * 10)</span>
+            </div>
 
-        <!-- Ô nhập số trang -->
-        <form method="get" action="@Url.Action("Index", "DonHang")" class="page-control">
-            <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
-        </form>
+            <!-- Phân trang với mũi tên và ô nhập số trang -->
+            <div class="pagination">
+                <!-- Mũi tên trái -->
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="page-link arrow">&#8592;</a>
+                }
+                else
+                {
+                    <span class="page-link arrow">&#8592;</span>
+                }
 
-        <!-- Mũi tên phải -->
-        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-        {
-            <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link arrow">&#8594;</a>
-        }
-        else
-        {
-            <span class="page-link arrow">&#8594;</span>
-        }
-    </div>
-</div>
+                <!-- Ô nhập số trang -->
+                <form method="get" action="@Url.Action("Index", "DonHang")" class="page-control">
+                    <input type="number" name="page" value="@ViewBag.CurrentPage" class="page-input" min="1" max="@ViewBag.TotalPages" />
+                </form>
+
+                <!-- Mũi tên phải -->
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="page-link arrow">&#8594;</a>
+                }
+                else
+                {
+                    <span class="page-link arrow">&#8594;</span>
+                }
+            </div>
+        </div>

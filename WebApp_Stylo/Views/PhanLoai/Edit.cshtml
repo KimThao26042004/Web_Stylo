@@ -1,0 +1,27 @@
+﻿@model WebApp_Stylo.Models.PhanLoai
+
+@{
+    ViewBag.Title = "Sửa Phân Loại";
+}
+<div class="container">
+
+    <div class="edit-page">
+        <div class="edit-card">
+            <h3 class="card-title">Sửa Phân loại</h3>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.PhanLoaiID)
+
+                <div class="form-group">
+                    @Html.Label("Tên phân loại: ")
+                    @Html.TextBoxFor(m => m.Ten, new { @class = "form-control" })
+                </div>
+
+                <button type="submit" class="btn btn-success">Lưu</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại</a>
+            }
+        </div>
+    </div>
+</div>
